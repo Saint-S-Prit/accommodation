@@ -1,0 +1,17 @@
+
+{{ form_start(form ,{'attr':{'id':"addRoom"}}) }}
+
+    {{ form_row(form.nameRoom,{'attr':{'placeholder':"name room"}}) }}
+    <span id="validenameRoom" class="valide"></span>
+    <span id="ErreurnameRoom" class="error"></span>
+
+    {{ form_row(form.typeRoom,{'attr':{'placeholder':"type room"}}) }}
+    <span class="valide" id="validetypeRoom"></span>
+    <span id="ErreurtypeRoom" class="error"></span>
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+
+
+

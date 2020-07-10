@@ -1,0 +1,53 @@
+{{ form_start(form ,{'attr':{'id':"addStudent"}}) }}
+    <span id="Erreur" class="valide"></span>
+    {{ form_row(form.matricule,{'attr':{'placeholder':"matricule"}}) }}
+    <span id="valideMatricule" class="valide"></span>
+    <span id="ErreurMatricule" class="error"></span>
+    {{ form_row(form.firstName,{'attr':{'placeholder':"firstname"}}) }}
+    <span id="valideFirstname" class="valide"></span>
+    <span id="ErreurFirstname" class="error"></span>
+    {{ form_row(form.lastName,{'attr':{'placeholder':"lastname"}}) }}
+    <span id="valideLastname" class="valide"></span>
+    <span id="ErreurLastname" class="error"></span>
+    {{ form_row(form.birthday,{'attr':{'placeholder':"birthday"}}) }}
+    <span id="valideBirthday" class="valide"></span>
+    <span id="ErreurBirthday" class="error"></span>
+    {{ form_row(form.email,{'attr':{'placeholder':"email"}}) }}
+    <span id="valideEmail" class="valide"></span>
+    <span id="ErreurEmail" class="error"></span>
+    {{ form_row(form.phone,{'attr':{'placeholder':"phone"}}) }}
+    <span id="validePhone" class="valide"></span>
+    <span id="ErreurPhone" class="error"></span>
+
+    <div>
+            <span style="border:2px solid #FFF; margin:5px;border-radius:10%"><input type="radio" id="cholarshipsroom" name="cholarshipsroom"> cholarships and room</span>
+            <span style="border:2px solid #FFF; margin:5px;border-radius:10%"><input type="radio" id="cholarships" name="cholarships"> cholarships </span>
+            <span style="border:2px solid #FFF; margin:5px;border-radius:10%"><input type="radio" id="nocholarships" name="nocholarships"> no cholarships</span>
+    </div>
+    <div id="adresse" class="form-group">
+        {{ form_row(form.adresse,{'attr':{'placeholder':"adresse"}}) }}
+        <span id="valideAdresse" class="valide"></span>
+        <span id="ErreurAdresse" class="error"></span>
+    </div>
+
+    <div id="sholarship" class="form-group">
+        {{ form_row(form.sholarship,{'attr':{'placeholder':"sholarship"}}) }}
+        <span id="valideSholarship" class="valide"></span>
+        <span id="ErreurSholarship" class="error"></span>
+    </div>
+    <div id="housing" class="form-group">
+        {{ form_row(form.housing,{'attr':{'placeholder':"housing"}}) }}
+        <span id="valideHousing" class="valide"></span>
+        <span id="ErreurHousing" class="error"></span>
+    </div>
+    <div id="room" class="form-group">
+        {{ form_row(form.room,{'attr':{'placeholder':"room"}}) }}
+        <span id="valideRoom" class="valide"></span>
+        <span id="ErreurRoom" class="error"></span>
+    </div>
+    
+    <button class="btn" type="submit">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+
+

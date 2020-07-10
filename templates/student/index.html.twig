@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Student index{% endblock %}
+
+{% block body %}
+    <h1 class="titlecreate">Student index</h1>
+
+<div id="listStudent">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Matricule</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Birthday</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Adresse</th>
+            <th>Sholarship</th>
+            <th>Housing</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.matricule }}</td>
+                <td>{{ student.firstName }}</td>
+                <td>{{ student.lastName }}</td>
+                <td>{{ student.birthday }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.phone }}</td>
+                <td>{{ student.adresse }}</td>
+                <td>{{ student.sholarship }}</td>
+                <td>{{ student.housing }}</td>
+                <td>
+                    <a href="{{ path('student_show', {'id': student.id}) }}">show</a>
+                    <a href="{{ path('student_edit', {'id': student.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    
+    <a href="{{ path('student_new') }}">Create new</a>
+{% endblock %}
