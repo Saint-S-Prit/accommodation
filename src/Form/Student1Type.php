@@ -19,7 +19,6 @@ class Student1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('matricule',TextType::class,['required' => false])
             ->add('firstName',TextType::class,['required' => false])
             ->add('lastName',TextType::class,['required' => false])
             ->add('birthday',TextType::class,['required' => false])

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Student;
 use App\Form\Student1Type;
 use App\Repository\StudentRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\BrowserKit\Response as BrowserKitResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,20 +45,42 @@ class StudentController extends AbstractController
             $form = $this->createForm(Student1Type::class, $student);
             $form->handleRequest($request);
     
-            if ($form->isSubmitted() && $form->isValid())
+            if (isset($_POST['student1']))
             {
+                $data = $_POST['student1'];
+                
+                // $student = new Student();
+                $pnom = $data['firstName'];
+                $nom = $data['lastName'];
+                $phone = $data['phone'];
+                $email = $data['email'];
+                $adresse = $data['adresse'];
+                $birthday = $data['birthday'];
+                $sholarship = $data['sholarship'];
+                $housing = $data['housing'];
+                // $room = $data['room'];
+
+
+                $matricule = strtoupper(date('Y').substr($nom, 0, 2).substr($pnom,-2).sprintf("%"."04d",rand(0,9999)));
+                $student -> setMatricule($matricule);
+                $student -> setFirstName($pnom);
+                $student -> setLastName($nom);
+                $student -> setBirthday($birthday);
+                $student -> setEmail($email);
+                $student -> setPhone($phone);
+                $student -> setSholarship($sholarship);
+                $student -> setHousing($housing);
+                $student -> setAdresse($adresse);
+                // $student -> setRoom($room);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($student);
                 $entityManager->flush();
-                
-    
-                return $this->redirectToRoute('student_liste');
+                return new Response('okey');
             }
-    
-            return $this->render('student/new.html.twig', [
+            
+            return $this->render('student/new.html.twig',[
                 'student' => $student,
                 'form' => $form->createView(),
-                
             ]);
 
         
@@ -107,4 +130,45 @@ class StudentController extends AbstractController
 
         return $this->redirectToRoute('student_liste');
     }
+
+    /**
+     * @Route("/recherche", name="search", methods={"GET"})
+     */
+    public function recherche(Request $request, StudentRepository $repo, PaginatorInterface $paginator)
+    {
+
+        $searchForm = $this->createForm(StudentSearchType::class);
+        $searchForm->handleRequest($request);
+        
+        $donnees = $repo->findAll();
+ 
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+ 
+            $firstName = $searchForm->getData()->getfirstName();
+
+            $donnees = $repo->search($firstName);
+        
+
+            if ($donnees == null) {
+                $this->addFlash('erreur', 'Aucun article contenant ce mot clé dans le titre n\'a été trouvé, essayez en un autre.');
+           
+            }
+        }
+
+    }
+
+    //  // Paginate the results of the query
+    //  $students = $paginator->paginate(
+    //     // Doctrine Query, not results
+    //     $donnees,
+    //     // Define the page parameter
+    //     $request->query->getInt('page', 1),
+    //     // Items per page
+    //     4
+    // );
+
+    //     return $this->render('student/search.html.twig',[
+    //         'students' => $students,
+    //         'searchForm' => $searchForm->createView()
+    //     ]);
 }

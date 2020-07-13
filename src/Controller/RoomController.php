@@ -56,19 +56,28 @@ class RoomController extends AbstractController
         $room = new Room();
         $form = $this->createForm(Room1Type::class, $room);
         $form->handleRequest($request);
+       
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($room);
-            $entityManager->flush();
+       if (isset($_POST['room1']))
+            {
+                $data = $_POST['room1'];
+                $troom = $data['typeRoom'];
 
-            return $this->redirectToRoute('room_liste');
-        }
+                $nroom = sprintf("%'.03d",rand(0,999))."-".sprintf("%'.04d",rand(0,9999));
+                $room -> setnameRoom($nroom);
+                $room -> settypeRoom($troom);
 
-        return $this->render('room/new.html.twig', [
-            'room' => $room,
-            'form' => $form->createView(),
-        ]);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($room);
+                $entityManager->flush();
+                return new Response('okey');
+            }
+            return $this->render('room/new.html.twig', [
+                'room' => $room,
+                'form' => $form->createView(),
+                
+            ]);
+
     }
 
     /**

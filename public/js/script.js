@@ -47,31 +47,13 @@ $('#room').hide();
 
     //function for add new student
     function createStudent(){
-        var matricule = $('#student1_matricule').val();
         var firstname = $('#student1_firstName').val();
         var lastname = $('#student1_lastName').val();
         var birthday = $('#student1_birthday').val();
         var email = $('#student1_email').val();
         var phone = $('#student1_phone').val();
 
-    //valide field one by one
-    $('#student1_matricule').keyup(function ()
-    {
-        var matricule = $('#student1_matricule').val();
-        // vérifier si la matricule
-        var reg = /^[a-zA-Z0-9@]{3,15}$/;
-        if (reg.test(matricule))
-        {
-            $('#valideMatricule').html("valide");
-            $('#ErreurMatricule').html("");
-        }
-        else
-        {
-            $('#valideMatricule').html("");
-            $('#ErreurMatricule').html("Must be 6-15 characters long. ");
-            
-        }
-    });
+
 
     $('#student1_firstName').keyup(function ()
     {
@@ -164,12 +146,8 @@ $('#room').hide();
     $('#addStudent').on('submit',function(e)
     {
 
-        var error = false;
-        // var sholarship = $('#student1_sholarship').val();
-        // var housing = $('#student1_housing').val();
-        // var room = $('#student1_room').val();
+        e.preventDefault();
 
-        var matricule = $('#student1_matricule').val();
         var firstname = $('#student1_firstName').val();
         var lastname = $('#student1_lastName').val();
         var birthday = $('#student1_birthday').val();
@@ -177,15 +155,19 @@ $('#room').hide();
         var phone = $('#student1_phone').val();
 
         //if valide fields are not empty
-        if (matricule != "" && firstname != "" && lastname != "" && email != "" && phone != "" && birthday != "") {
+        if (firstname != "" && lastname != "" && email != "" && phone != "" && birthday != "") {
 
-            error = true;
-            alert('Valide!');
+            $.ajax({
+                url:'new',
+                data:$('#addStudent').serialize(),
+                method:'POST',
+                success:function(result){
+                    $('#container').html(result);
+                }
+            });
         }
         else
         {
-            e.preventDefault();
-            error = false;
             alert('remplir tous!');
         }
     });
@@ -218,22 +200,24 @@ $('#room').hide();
 
         $('#addRoom').on('submit',function(e)
         {
-
-            var error = false;
+            e.preventDefault();
 
             var typeRoom = $('#room1_typeRoom').val();
-            var nameRoom = $('#room1_nameRoom').val();
 
             //if valide fields are not empty
-            if (nameRoom != "" &&  typeRoom != "") {
+            if (typeRoom != "") {
 
-                error = true;
-                alert('Valide!');
+                $.ajax({
+                    url:'new',
+                    method:'POST',
+                    data:$('#addRoom').serialize(),
+                    success:function(result){
+                        $('#containerrr').html(result);
+                    }
+                });
             }
             else
             {
-                e.preventDefault();
-                error = false;
                 alert('remplir tous!');
             }
         });

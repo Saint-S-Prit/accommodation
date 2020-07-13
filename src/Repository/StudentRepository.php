@@ -47,4 +47,32 @@ class StudentRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    // public function search($firstName) {
+    //     return $this->createQueryBuilder('Student')
+    //     ->andWhere('Student.firstName LIKE :firstName')
+    //     ->setParameter('firstName', '%'.$firstName.'%')
+    //     ->getQuery()
+    //     ->execute();
+    // }
+
+    /**
+     * @param string|null $term
+     * @return firstName[]
+     */
+    public function findAllWithSearch(?string $term)
+    {
+        $qb = $this->createQueryBuilder('Student');
+        if ($term) {
+            $qb->andWhere('c.firstName LIKE :term OR c.matricule LIKE :term')
+                ->setParameter('term', '%' . $term . '%')
+            ;
+        }
+        return $qb
+            ->orderBy('c.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

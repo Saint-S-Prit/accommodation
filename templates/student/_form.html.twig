@@ -1,8 +1,5 @@
 {{ form_start(form ,{'attr':{'id':"addStudent"}}) }}
     <span id="Erreur" class="valide"></span>
-    {{ form_row(form.matricule,{'attr':{'placeholder':"matricule"}}) }}
-    <span id="valideMatricule" class="valide"></span>
-    <span id="ErreurMatricule" class="error"></span>
     {{ form_row(form.firstName,{'attr':{'placeholder':"firstname"}}) }}
     <span id="valideFirstname" class="valide"></span>
     <span id="ErreurFirstname" class="error"></span>
@@ -30,7 +27,7 @@
         <span id="ErreurAdresse" class="error"></span>
     </div>
 
-    <div id="sholarship" class="form-group">
+    <div id="sholarship" class="form-group ">
         {{ form_row(form.sholarship,{'attr':{'placeholder':"sholarship"}}) }}
         <span id="valideSholarship" class="valide"></span>
         <span id="ErreurSholarship" class="error"></span>
